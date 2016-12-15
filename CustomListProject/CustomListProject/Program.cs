@@ -10,6 +10,56 @@ namespace CustomListProject
     {
         static void Main(string[] args)
         {
+
+            MyList<string> testString1 = new MyList<string>();
+
+            testString1.MyListAdd("car");
+            testString1.MyListAdd("can");
+            testString1.MyListAdd("cake");
+            testString1.MyListAdd("cam");
+            testString1.MyListAdd("cat");
+            testString1.MyListAdd("bear");
+            testString1.MyListAdd("cart");
+
+            MyList<string> testString2 = new MyList<string>();
+
+            testString2.MyListAdd("bar");
+            testString2.MyListAdd("bat");
+            testString2.MyListAdd("car");
+            testString2.MyListAdd("bon");
+            testString2.MyListAdd("bear");
+
+            MyList<string> testStringZip = new MyList<string>();
+
+            testStringZip = (testString1 + testString2);
+
+
+
+            MyList<int> testOdd = new MyList<int>();
+            testOdd.MyListAdd(1);
+            testOdd.MyListAdd(3);
+            testOdd.MyListAdd(5);
+            testOdd.MyListAdd(7);
+            testOdd.MyListAdd(9);
+
+
+            testOdd.MyListRemove(5);
+
+            Console.WriteLine(testOdd[0]);
+            Console.WriteLine(testOdd[1]);
+            Console.WriteLine(testOdd[2]);
+            Console.WriteLine(testOdd[3]);
+            Console.WriteLine(testOdd[4]);
+
+            MyList<string> testString12 = new MyList<string>();
+
+            testString12.MyListAdd("car");
+            testString12.MyListAdd("can");
+            testString12.MyListAdd("cake");
+
+            Console.WriteLine(testString12.ToString());
+
+
             MyList<int> Test = new MyList<int>();
             
             Test.MyListAdd(1);
@@ -42,7 +92,7 @@ namespace CustomListProject
 
             MyList<int> Test3 = new MyList<int>();
 
-            MyList<int> testOdd = new MyList<int>();
+            MyList<int> testOdd2 = new MyList<int>();
             testOdd.MyListAdd(1);
             testOdd.MyListAdd(3);
             testOdd.MyListAdd(5);
@@ -59,6 +109,10 @@ namespace CustomListProject
             MyList<int> testZip = new MyList<int>();
 
             testZip = testOdd.Zip(testOdd, testEven);
+
+            MyList<string> testMe = new MyList<string>();
+
+            Console.WriteLine(testEven.ToString());
 
             Console.ReadLine();
 
@@ -80,6 +134,10 @@ namespace CustomListProject
             Console.WriteLine(Test[6]);
 
             Console.ReadLine();
+
+
+
+
         }
     }
 }

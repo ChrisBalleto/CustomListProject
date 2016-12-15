@@ -41,10 +41,6 @@ namespace CustomListProject
             {
                 return count;
             }
-            set
-            {
-                capacity = value;
-            }
         }
         public int MyListCount()
         {
@@ -54,16 +50,7 @@ namespace CustomListProject
         {
             return this.capacity;
         }
-        public MyList<T> Zip(MyList<T> list1, MyList<T> list2)
-        {           
-            MyList<T> list3 = new MyList<T>(list1.Count >= list2.Count ? list2.count * 2 : list1.count * 2 );
-            for (int i = 0; i < (list1.Count > list2.Count ? list2.count : list1.count); i++)
-            {
-                list3.MyListAdd(list1[i]);
-                list3.MyListAdd(list2[i]);
-            }
-            return list3;
-        }
+        
         public void MyListAdd(T item)
         { 
             if ((capacity - count) == 0)
@@ -78,7 +65,6 @@ namespace CustomListProject
                 count++;
             }            
         }
-
         public void DoubleArraySize()
         {
             int doubleCapacity = capacity * 2;
@@ -89,6 +75,40 @@ namespace CustomListProject
             }
             capacity = capacity * 2;
             myListArray = temporary;
+        }
+        public bool MyListRemove(T item)
+        {
+            T[] temporary = new T[capacity];
+            bool shiftDown = false;
+            for (int i = 0; i < count; i++)
+            {
+                if (myListArray[i].Equals(item))
+                {
+                    temporary[i] = myListArray[i + 1];
+                    count--;
+                    shiftDown = true;
+                }
+                else if (shiftDown == true)
+                {
+                    temporary[i] = myListArray[i + 1];
+
+                }
+                else
+                {
+                    temporary[i] = myListArray[i];
+                }
+            }
+            myListArray = temporary;
+            return shiftDown;
+        }
+        public override string ToString()
+        {
+            string myString = "";
+            foreach (T element in myListArray)
+            {
+                myString += string.Format("{0}", element);
+            }
+            return myString;
         }
         public static MyList<T> operator -(MyList<T> list1, MyList<T> list2) //This function should subtract (from list1) every instance where an element that list 1 and list 2 have.
         {
@@ -114,26 +134,12 @@ namespace CustomListProject
             }           
             return subtractList;
         }
-        public int UseLargerCap(MyList<T> list1, MyList<T> list2)
-        {
-            if (list1.Capacity > list2.Capacity)
-            {
-                Capacity = list1.Capacity;
-                return capacity;
-            }
-            else if (list2.Capacity >= list1.Capacity)
-            {
-                Capacity = list2.Capacity;
-                return capacity;
-            }
-            return capacity;
-        }
         public static MyList<T> operator +(MyList<T> list1, MyList<T> list2)
         {
             MyList<T> addedList = new MyList<T>(list1.Count + list2.Count);
             for (int i = 0; i < list1.count; i++)
             {
-                
+                addedList.MyListAdd(list1[i]);
             }
             for (int i = 0; i < list2.count; i++)
             {
@@ -141,33 +147,7 @@ namespace CustomListProject
             }
             return addedList;
         }
-        public int DoubleLargerCap(MyList<T> list1, MyList<T> list2)
-        {
-            if (list1.Capacity > list2.Capacity)
-            {
-                Capacity = list1.Capacity * 2;
-                return capacity;
-            }
-            else if (list2.Capacity >= list1.Capacity)
-            {
-                Capacity = list2.Capacity * 2;
-                return capacity;
-            }
-            return capacity;
-        }
-        public bool MyListRemove(T item)
-        {
-            for (int i = 0; i < Count; i++)
-            {
-                if (myListArray[i].Equals(item))
-                {
-                    myListArray[i] = myListArray[i + 1];
-                    count--;
-                    return true;
-                }
-            }
-            return false; 
-        }      
+           
         public T this[int number]
         {
             get
@@ -190,28 +170,48 @@ namespace CustomListProject
         {
             return this.GetEnumerator();
         }
-
-        public override string ToString()
-        {           
-            string myString = "";
-            foreach (T element in myListArray)
+        
+        public MyList<T> Zip(MyList<T> list1, MyList<T> list2)
+        {
+            MyList<T> list3 = new MyList<T>(list1.Count >= list2.Count ? list2.count * 2 : list1.count * 2);
+            for (int i = 0; i < (list1.Count > list2.Count ? list2.count : list1.count); i++)
             {
-                myString += element;
+                list3.MyListAdd(list1[i]);
+                list3.MyListAdd(list2[i]);
             }
-            return myString;
+            return list3;
         }
     }
 }
-//    class CustomList
+
+
+//public int UseLargerCap(MyList<T> list1, MyList<T> list2)
 //{
-//    public int Capacity { get; set; }
-//    public int Count { get; }
-//    public CustomList();
-//    public void Add(T item);
-//    public void Insert(int index, T item);
-//    public bool Remove(T item);
-//    public static CustomList<T> operator -(CustomList<T> list1, CustomList<T> list2);
-//    public static CustomList<T> operator +(CustomList<T> list1, CustomList<T> list2);
-//    public IEnumerator<T> GetEnumerator();
-//    IEnumerator IEnumerable.GetEnumerator();
+//    if (list1.Capacity > list2.Capacity)
+//    {
+//        Capacity = list1.Capacity;
+//        return capacity;
+//    }
+//    else if (list2.Capacity >= list1.Capacity)
+//    {
+//        Capacity = list2.Capacity;
+//        return capacity;
+//    }
+//    return capacity;
 //}
+//public int DoubleLargerCap(MyList<T> list1, MyList<T> list2)
+//{
+//    if (list1.Capacity > list2.Capacity)
+//    {
+//        Capacity = list1.Capacity * 2;
+//        return capacity;
+//    }
+//    else if (list2.Capacity >= list1.Capacity)
+//    {
+//        Capacity = list2.Capacity * 2;
+//        return capacity;
+//    }
+//    return capacity;
+//}
+
+
